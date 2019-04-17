@@ -16,7 +16,7 @@ Switch back to the project directory, and start:
 
 This Runs the server and client in development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-The server is running on port 5001
+The server is running on http://localhost:5001
 
 ## HOW TO USE CHATAPP
 
