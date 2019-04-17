@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Modal from './components/modal/modal';
+import Chatbox from "./components/chatbox/chatbox";
 import './App.css';
 import io from "socket.io-client";
 
@@ -12,7 +13,8 @@ class App extends Component {
       responseToPost: "",
       user: "",
       show: false,
-      messages: []
+      messages: [],
+      users: []
     };
 
     this.socket = io("http://localhost:5001");
@@ -30,17 +32,24 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.callApi()
-      .then(res => this.setState({ user: res }))
+    this.getUser(1)
+      .then(res => this.setState(prevState => {
+        let users = prevState.users;
+        users.push(res);
+        return { users: users };
+      }))
       .catch(err => console.log(err));
 
     this.socket.on("chat", message => {
       message.key = JSON.stringify(message);
-      this.setState(prevState => {
-        let messages = prevState.messages;
-        messages.push(message)
-        return {messages: messages}
-      })
+      const a = this.state.users.find(x => x.id === message.user_id);
+
+      debugger;
+        this.setState(prevState => {
+          let messages = prevState.messages;
+          messages.push(message);
+          return { messages: messages };
+        });
     });
   }
 
@@ -48,8 +57,8 @@ class App extends Component {
     this.socket.close();
   }
 
-  callApi = async () => {
-    const response = await fetch("/user/1");
+  getUser = async userId => {
+    const response = await fetch(`/user/${userId}`);
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
     return body;
@@ -66,25 +75,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <img
-          onClick={this.showModal}
-          src={this.state.user.avatar}
-          alt="avatar"
-        />
         <Modal show={this.state.show} handleClose={this.hideModal}>
           <p>USERNAME: {this.state.user.username}</p>
           <p>BIO: {this.state.user.bio}</p>
         </Modal>
-        <table align="center">
-          <tbody>
-            {this.state.messages.map(message => (
-              <tr key={message.key}>
-                <td className="name-column">{message.user_id}</td>
-                <td>{message.message}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <Chatbox messages={this.state.messages} users={this.state.users} />
         <form onSubmit={this.handleSubmit}>
           <p>
             <strong>Post to Server:</strong>

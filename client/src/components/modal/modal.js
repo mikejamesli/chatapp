@@ -12,4 +12,4 @@ const Modal = ({ handleClose, show, children }) => {
   );
 };
 
-export default Modal
+export default Modal;
