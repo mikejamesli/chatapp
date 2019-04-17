@@ -1,20 +1,20 @@
 ## HOW TO RUN CHATAPP LOCALLY
 
-In the project directory, run:
+In the project directory install the project dependencies:
 
 ### `npm install`
 
-In the client directory, run:
+Switch to the client directory and install dependencies:
 
 ### `cd client`
 ### `npm install`
 
-Switch back to the project directory, run:
+Switch back to the project directory, and start:
 
 ### `cd ..`
 ### `npm run dev`
 
 This Runs the server and client the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
+The server is running on port 5001
 
