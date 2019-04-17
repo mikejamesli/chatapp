@@ -6,10 +6,12 @@ In the project directory, run:
 
 In the client directory, run:
 
+### `cd client`
 ### `npm install`
 
-Change back to the project directory, run:
+Switch back to the project directory, run:
 
+### `cd ..`
 ### `npm run dev`
 
 This Runs the server and client the development mode.<br>
