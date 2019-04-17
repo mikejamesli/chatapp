@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Modal from './components/modal/modal';
-import Chatbox from "./components/chatbox/chatbox";
+//import Chatbox from "./components/chatbox/chatbox";
 import './App.css';
 import io from "socket.io-client";
 
@@ -11,19 +11,28 @@ class App extends Component {
       response: "",
       post: "",
       responseToPost: "",
-      user: "",
       show: false,
       messages: [],
-      users: []
+      users: [],
+      selectedUser: {
+        user_id: "",
+        bio: ""
+      }
     };
 
+    //TODO: replace hardcoded variable into config file
     this.socket = io("http://localhost:5001");
-
-    // This binding is necessary to make `this` work in the callback
     this.showModal = this.showModal.bind(this);
+    this.getAvatar = this.getAvatar.bind(this);
   }
 
-  showModal() {
+  getAvatar(userId){
+    return this.state.users.find(x => x.id === userId).avatar;
+  }
+
+  showModal(userId) {
+    const user = this.state.users.find(x => x.id === userId);
+    this.setState({ selectedUser: user });
     this.setState({ show: true });
   }
 
@@ -40,17 +49,22 @@ class App extends Component {
       }))
       .catch(err => console.log(err));
 
-    this.socket.on("chat", message => {
-      message.key = JSON.stringify(message);
-      const a = this.state.users.find(x => x.id === message.user_id);
+    this.socket.on("chat", function(message) {
+      message.key =
+        "_" +
+        Math.random()
+          .toString(36)
+          .substr(2, 9);
 
-      debugger;
+          //TODO: On new message check if we have the user data if not then fetch it and store it locally
+        //const a = this.state.users.find(x => x.id === message.user_id);
+
         this.setState(prevState => {
           let messages = prevState.messages;
           messages.push(message);
           return { messages: messages };
         });
-    });
+    }.bind(this))
   }
 
   componentWillUnmount() {
@@ -68,18 +82,37 @@ class App extends Component {
     this.socket.emit("chat", {
       name: "chat",
       message: this.state.post,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      user_id: 1
     });
     this.setState({ post: "" });
   };
+
+  //TODO Move Table into chatbox component
   render() {
     return (
       <div className="App">
         <Modal show={this.state.show} handleClose={this.hideModal}>
-          <p>USERNAME: {this.state.user.username}</p>
-          <p>BIO: {this.state.user.bio}</p>
+          <p>USERNAME: {this.state.selectedUser.id}</p>
+          <p>BIO: {this.state.selectedUser.bio}</p>
         </Modal>
-        <Chatbox messages={this.state.messages} users={this.state.users} />
+        <table align="center">
+          <tbody>
+            {this.state.messages.map(message => (
+              <tr key={message.key}>
+                <td className="name-column">
+                  <img
+                    className="avatar"
+                    src={this.getAvatar(message.user_id)}
+                    alt="avatar"
+                    onClick={() => this.showModal(message.user_id)}
+                  />
+                </td>
+                <td>{message.message}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
         <form onSubmit={this.handleSubmit}>
           <p>
             <strong>Post to Server:</strong>

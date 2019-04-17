@@ -9,7 +9,6 @@ const Chatbox = (props) => {
           <tr key={message.key}>
             <td className="name-column">
             <img
-                onClick={this.showModal}
                 src={this.state.user.avatar}
                 alt="avatar"
               /></td>

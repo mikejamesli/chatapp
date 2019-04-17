@@ -19,10 +19,9 @@ io.on("connection", function(socket) {
   socket.on("chat", function(data) {
     console.log("message: " + data.message);
     const message = {
-      user_id: "1234",
+      user_id: data.user_id,
       message: data.message
     };
-
     io.emit("chat", message);
   });
 });
