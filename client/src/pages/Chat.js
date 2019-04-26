@@ -39,19 +39,14 @@ export default function Component(props) {
 
   useEffect(() => {
     socket.on("chat", function(message) {
-      debugger;
       message.key =
         "_" +
         Math.random()
           .toString(36)
           .substr(2, 9);
-
-      setMessages(() => {
-        messages.push(message);
-        return messages;
-      });
+      setMessages(currentMessages => [...currentMessages, message]);
     });
-    return () => socket.close();
+    return () => socket.close(messages);
   }, []);
 
   //TODO: On new message check if we have the user data if not then fetch it and store it locally
