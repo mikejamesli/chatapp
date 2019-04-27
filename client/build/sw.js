@@ -77,7 +77,7 @@ if ("function" === typeof importScripts) {
     );
 
     workbox.routing.registerRoute(
-      /^https:\/\/mivechatserver.herokuapp.com\/users/,
+      /^https:\/\/mivechatserver.herokuapp.com\/user/,
       workbox.strategies.cacheFirst({
         cacheName: "users",
         plugins: [
