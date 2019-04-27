@@ -6,12 +6,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/build"));
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
-const redis = require("socket.io-redis");
 const users = require("./users");
-io.adapter(redis({ host: "localhost", port: 6379 }));
 
 io.on("connection", function(socket) {
-
   socket.on("disconnect", function() {
     console.log("user disconnected");
   });
@@ -38,6 +35,6 @@ app.post("/channel/square/messages", (req, res) => {
   );
 });
 
-server.listen(5001, () => {
-  console.log("Backend Server is running on http://localhost:5001");
+server.listen(5000, () => {
+  console.log("Backend Server is running on http://localhost:5000");
 });
