@@ -9,16 +9,24 @@ if ("function" === typeof importScripts) {
     /* injection point for manifest files.  */
     workbox.precaching.precacheAndRoute([
   {
-    "url": "index.html",
-    "revision": "b0a62e24a25f319ba0422d6537abf010"
+    "url": "img/icons/logo-lg.png",
+    "revision": "322d70756685963f061a29a1482abc94"
   },
   {
-    "url": "precache-manifest.fe21f69698f8157451db982b05acb120.js",
-    "revision": "fe21f69698f8157451db982b05acb120"
+    "url": "img/icons/logo.png",
+    "revision": "dde8292c851eb92d969af222721505e2"
+  },
+  {
+    "url": "index.html",
+    "revision": "167ebe35c0edade2eb56b795aa501f28"
+  },
+  {
+    "url": "precache-manifest.beb89667becdd6f0c29acb7af48176b0.js",
+    "revision": "beb89667becdd6f0c29acb7af48176b0"
   },
   {
     "url": "service-worker.js",
-    "revision": "1de43a4b733bab4bc7cf0608e904e0b3"
+    "revision": "a252afdeaa637fee1d6cdff336de5c4f"
   },
   {
     "url": "static/css/main.627c13a9.chunk.css",
@@ -35,6 +43,18 @@ if ("function" === typeof importScripts) {
   {
     "url": "static/js/runtime~main.a8a9905a.js",
     "revision": "238c9148d722c1b6291779bd879837a1"
+  },
+  {
+    "url": "touch-icon-ipad.png",
+    "revision": "322d70756685963f061a29a1482abc94"
+  },
+  {
+    "url": "touch-icon-iphone-retina.png",
+    "revision": "322d70756685963f061a29a1482abc94"
+  },
+  {
+    "url": "touch-icon-iphone.png",
+    "revision": "322d70756685963f061a29a1482abc94"
   }
 ]);
 
