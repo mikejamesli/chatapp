@@ -6,12 +6,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/build"));
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
-const redis = require("socket.io-redis");
 const users = require("./users");
-io.adapter(redis({ host: "localhost", port: 6379 }));
 
 io.on("connection", function(socket) {
-
   socket.on("disconnect", function() {
     console.log("user disconnected");
   });
