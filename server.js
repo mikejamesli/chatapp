@@ -35,6 +35,4 @@ app.post("/channel/square/messages", (req, res) => {
   );
 });
 
-server.listen(5000, () => {
-  console.log("Backend Server is running on http://localhost:5000");
-});
+server.listen(process.env.PORT || 5000);
