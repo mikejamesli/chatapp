@@ -75,6 +75,19 @@ if ("function" === typeof importScripts) {
         ]
       })
     );
+
+    workbox.routing.registerRoute(
+      /^https:\/\/mivechatserver.herokuapp.com\/users/,
+      workbox.strategies.cacheFirst({
+        cacheName: "users",
+        plugins: [
+          new workbox.expiration.Plugin({
+            maxEntries: 60,
+            maxAgeSeconds: 30 * 24 * 60 * 60 // 30 Days
+          })
+        ]
+      })
+    );
   } else {
     console.log("Workbox could not be loaded. No Offline support");
   }
