@@ -18,15 +18,15 @@ if ("function" === typeof importScripts) {
   },
   {
     "url": "index.html",
-    "revision": "167ebe35c0edade2eb56b795aa501f28"
+    "revision": "0b7953ebd6c1e49345339175e958345a"
   },
   {
-    "url": "precache-manifest.beb89667becdd6f0c29acb7af48176b0.js",
-    "revision": "beb89667becdd6f0c29acb7af48176b0"
+    "url": "precache-manifest.c8dbf4fe24e39734541ec934387b7599.js",
+    "revision": "c8dbf4fe24e39734541ec934387b7599"
   },
   {
     "url": "service-worker.js",
-    "revision": "a252afdeaa637fee1d6cdff336de5c4f"
+    "revision": "f7818790e230a4e832724d9fa7b0c5a6"
   },
   {
     "url": "static/css/main.627c13a9.chunk.css",
@@ -37,8 +37,8 @@ if ("function" === typeof importScripts) {
     "revision": "873c98447fa6bb8617bd235cd801c576"
   },
   {
-    "url": "static/js/main.88baded0.chunk.js",
-    "revision": "84aa744c8dbc53d5e38526c9ec9c2869"
+    "url": "static/js/main.1e041dfc.chunk.js",
+    "revision": "37d20bac24eb18d9c0dddab2e6cc6529"
   },
   {
     "url": "static/js/runtime~main.a8a9905a.js",
@@ -77,7 +77,7 @@ if ("function" === typeof importScripts) {
     );
 
     workbox.routing.registerRoute(
-      /^https:\/\/mivechatserver.herokuapp.com\/user/,
+      /^https:\/\/mivechat.herokuapp.com\/user/,
       workbox.strategies.cacheFirst({
         cacheName: "users",
         plugins: [
