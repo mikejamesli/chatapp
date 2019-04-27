@@ -1,13 +1,13 @@
 const express = require("express");
+const path = require("path");
 const bodyParser = require("body-parser");
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(__dirname + "client/build"));
+app.use(express.static(path.join(__dirname, "client/build")));
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
 const users = require("./users");
-const path = require("path");
 
 io.on("connection", function(socket) {
   socket.on("disconnect", function() {
@@ -35,8 +35,8 @@ app.post("/channel/square/messages", (req, res) => {
     `I received your POST request. This is what you sent me: ${req.body.post}`
   );
 });
-app.use("*", (req, res) =>
-  res.sendFile(path.resolve("client", "build", "index.html"))
+app.get("*", (req, res) =>
+  res.sendFile(path.join(__dirname + "/client/build/index.html"))
 );
 
 server.listen(process.env.PORT || 5000);
